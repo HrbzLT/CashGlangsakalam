@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Probability Slot Machine (Educational)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0b3d2e;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #06291e;
+            padding: 20px;
+        }
+
+        main {
+            padding: 30px;
+        }
+
+        .game-box {
+            background-color: #124734;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            min-width: 300px;
+        }
+
+        .slots {
+            font-size: 40px;
+            letter-spacing: 15px;
+            margin: 15px 0;
+        }
+
+        button {
+            background-color: gold;
+            color: black;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #ffcc00;
+        }
+
+        .stats {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎰 Probability Slot Machine</h1>
+    <p>Educational Demo of Random Sampling</p>
+</header>
+
+<main>
+    <div class="game-box">
+        <h2>Match All 3 Numbers</h2>
+        <p>Numbers range from <strong>1–9</strong></p>
+        <p>Win Probability ≈ <strong>1.23%</strong></p>
+
+        <div class="slots" id="slots">- - -</div>
+
+        <button onclick="spin()">SPIN</button>
+
+        <h3 id="result">---</h3>
+
+        <div class="stats">
+            <p>Spins: <span id="spins">0</span></p>
+            <p>Wins: <span id="wins">0</span></p>
+            <p>Win Rate: <span id="rate">0%</span></p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>⚠️ Educational use only. Demonstrates randomness and probability.</p>
+</footer>
+
+<script>
+    let spins = 0;
+    let wins = 0;
+
+    function spin() {
+        spins++;
+
+        // Generate three random numbers (1–9)
+        let a = randomSlot();
+        let b = randomSlot();
+        let c = randomSlot();
+
+        document.getElementById("slots").textContent = `${a} ${b} ${c}`;
+
+        // Win condition: all three numbers match
+        if (a === b && b === c) {
+            wins++;
+            document.getElementById("result").textContent = "🎉 JACKPOT!";
+        } else {
+            document.getElementById("result").textContent = "❌ NO MATCH";
+        }
+
+        updateStats();
+    }
+
+    function randomSlot() {
+        return Math.floor(Math.random() * 9) + 1;
+    }
+
+    function updateStats() {
+        document.getElementById("spins").textContent = spins;
+        document.getElementById("wins").textContent = wins;
+
+        let rate = ((wins / spins) * 100).toFixed(2);
+        document.getElementById("rate").textContent = rate + "%";
+    }
+</script>
+
+</body>
+</html>
